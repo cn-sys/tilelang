@@ -368,10 +368,10 @@ where local version label could look like `<sdk>.git<git_hash>`. Set `NO_VERSION
 ```
 $ python -mbuild -w
 ...
-Successfully built tilelang-0.1.6.post1+cu116.git0d4a74be-cp38-abi3-linux_x86_64.whl
+Successfully built tilelang-0.1.6.post1+cu116.git0d4a74be-cp39-abi3-linux_x86_64.whl
 ```
 
-where `<sdk>={cuda,rocm,metal}`. Specifically, when `<sdk>=cuda` and `CUDA_VERSION` is provided via env,
+where `<sdk>={cuda,rocm,cpu}` (and `cu<major><minor>` for CUDA builds). Specifically, when `<sdk>=cuda` and `CUDA_VERSION` is provided via env,
 `<sdk>=cu<cuda_major><cuda_minor>`, similar with this part in pytorch.
 Set `NO_TOOLCHAIN_VERSION=ON` to disable this.
 
