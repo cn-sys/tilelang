@@ -11,7 +11,7 @@ IR Lower Trace is the recommended successor to {doc}`pass_diff`. Compared with
 the older `TILELANG_PASS_DIFF` tool, it adds:
 
 - **Phase context** — each pass is tagged with its pipeline phase (e.g.
-  `pipeline_c`, `phase1_...`), so you can tell which backend stage a pass
+  `pipeline_cuda`, `pipeline_ascend`), so you can tell which backend stage a pass
   belongs to.
 - **Codegen capture** — the final TIR-to-source lowering is recorded, and the
   generated C/CUDA/HIP code is dropped to disk for inspection or editing.
@@ -88,7 +88,7 @@ A single run produces the following layout under `TL_LOWER_TRACE_DIR`:
             │   ├── 00_BindTarget_after.tir
             │   ├── 01_Simplify_before.tir
             │   └── 01_Simplify_after.tir
-            ├── phase2_optimize/        # another phase (illustrative)
+            ├── pipeline_cuda/          # one directory per target kind
             │   └── ...
             ├── codegen/
             │   ├── 42_codegen_device_before.tir
@@ -233,7 +233,7 @@ The HTML report is a single self-contained file (no external assets) providing:
   highlighting, and collapsible context (`↑↓ Expand` buttons reveal hidden equal
   lines).
 - **Keyboard navigation** — `j`/`k` to move between passes, `Shift+E` to
-  expand/collapse all, `F7` for Beyond-Compare-style manual alignment.
+  expand all rows, `F7` for Beyond-Compare-style manual alignment.
 - **Dark/Light theme toggle** persisted via `localStorage`.
 - **Copy buttons** for before/after IR of any pass.
 - **Error boxes** — a failed pass shows its exception message alongside the IR
