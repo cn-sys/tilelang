@@ -3684,13 +3684,8 @@ bool CodeGenTileLangPTO::IsVmiLocalRegisterBuffer(
 
 void CodeGenTileLangPTO::CheckVmiLocalRegisterIndex(
     const BufferNode *buffer, const PrimExpr &index) const {
-  bool is_constant = true;
-  tirx::PostOrderVisit(index, [&](const ObjectRef &node) {
-    if (node.as<VarNode>()) {
-      is_constant = false;
-    }
-  });
-  ICHECK(is_constant)
+  arith::Analyzer analyzer;
+  ICHECK(analyzer.Simplify(index).as<IntImmNode>() != nullptr)
       << "PTO VMI local register buffer `" << buffer->name
       << "` requires a compile-time constant index. Register arrays cannot "
          "be accessed inside T.unroll(..., explicit=False) or other runtime "
