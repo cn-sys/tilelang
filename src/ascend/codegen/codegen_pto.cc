@@ -9038,6 +9038,12 @@ void CodeGenTileLangPTO::EmitRngInit(const CallNode *op) {
       << "tl.rng_init on PTO must be used inside a T.SimtVF(...) block";
   ICHECK_EQ(op->args.size(), 4U)
       << "tl.rng_init expects exactly 4 arguments (seed, seq, off, generator)";
+  const auto *generator = op->args[3].as<StringImmNode>();
+  ICHECK(generator != nullptr &&
+         generator->value == "curandStatePhilox4_32_10_t")
+      << "tl.rng_init on PTO only implements curandStatePhilox4_32_10_t "
+         "(Philox), got "
+      << op->args[3];
   pto_rng_initialized_ = true;
   pto_rng_state_var_ = "_tl_rng_state";
   pto_rng_counter_var_ = "_tl_rng_counter";
