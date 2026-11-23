@@ -324,18 +324,12 @@ DataType ParseDataType(const std::string &dtype_name) {
     return DataType::UInt(64);
   if (dtype_name == "uint32")
     return DataType::UInt(32);
-  if (dtype_name == "uint16")
+  if (dtype_name == "uint16" || dtype_name == "uint16_t")
     return DataType::UInt(16);
   if (dtype_name == "int8")
     return DataType::Int(8);
-  if (dtype_name == "uint16" || dtype_name == "uint16_t")
-    return DataType::UInt(16);
   if (dtype_name == "uint8")
     return DataType::UInt(8);
-  if (dtype_name == "uint32")
-    return DataType::UInt(32);
-  if (dtype_name == "uint64")
-    return DataType::UInt(64);
   LOG(FATAL) << "Unsupported PTO dtype string: " << dtype_name;
   return DataType::Void();
 }
