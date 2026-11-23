@@ -18,10 +18,13 @@ dictionary when you need options such as GPU architecture or CPU model. The most
 | `hip` | AMD GPUs via ROCm. Use a config dict for options such as `{"kind": "hip", "mcpu": "gfx90a"}`. |
 | `metal` | Apple Silicon GPUs (arm64 Macs). |
 | `ascend` | Huawei Ascend NPUs. |
-| `pto` | Huawei Ascend PTO DSL backend. |
 | `llvm` | CPU execution. Use a config dict for options such as `{"kind": "llvm", "mtriple": "x86_64-linux-gnu"}`. |
 | `webgpu` | Browser / WebGPU runtimes. |
 | `c` | Emit plain C source for inspection or custom toolchains. |
+
+`pto` is not a target kind. It is accepted only as the bare string `"pto"`, which
+selects PTO codegen inside the Ascend backend; in a config dict, spell it
+`{"kind": "ascend", "keys": ["pto"]}`.
 
 To add options, pass a target config dictionary. For example:
 
