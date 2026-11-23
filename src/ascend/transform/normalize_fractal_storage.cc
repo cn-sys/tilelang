@@ -246,7 +246,7 @@ private:
       // A dense reshape is injective only while trailing region extents do
       // not wrap across the original view's strides. Otherwise equal bounding
       // box volume alone can hide duplicated logical elements.
-      for (size_t i = 1; i < ranges.size(); ++i)
+      for (size_t i = 0; i < ranges.size(); ++i)
         ICHECK(analyzer_->CanProve(ranges[i]->extent <= buffer->shape[i]))
             << "Cube region crosses an original reshape axis: " << region;
       Array<Range> mapped = logical_maps_[buffer]->MapRegionBounds(ranges);
