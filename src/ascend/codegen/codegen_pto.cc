@@ -7931,11 +7931,10 @@ void CodeGenTileLangPTO::VisitStmt_(const AllocBufferNode *op) {
            << " = pto.const(0, dtype=pto.int64)\n";
     integer_address_vars_.insert(buffer_var);
   } else if (scope == "local.fragment") {
+    // The constant-size requirement is enforced where the slot is actually
+    // materialized (EmitBufferAllocation / GetVectorLocalRef); this cube-side
+    // allocation only reserves the Python name.
     AllocVarID(buffer_var.get());
-    auto alloc_ref = GetRef<AllocBuffer>(op);
-    auto opt_size = alloc_ref.ConstantAllocationSize();
-    ICHECK(opt_size.has_value())
-        << "PTO local.fragment allocation expects a constant size";
   }
 
   RegisterHandleType_(buffer_var.get(), op->buffer->dtype);
