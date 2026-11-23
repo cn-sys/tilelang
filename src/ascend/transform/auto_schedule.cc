@@ -1099,7 +1099,13 @@ void ScheduleBuilder::Z3SchedulePythonLoop(ControlNode *ctrl,
       if (auto sid = aiv_storages_.Get(storage))
         scope += ".aiv" + std::to_string(sid.value()->value);
     }
-    int group_id = scope_to_group.at(scope);
+    auto group_it = scope_to_group.find(scope);
+    if (group_it == scope_to_group.end()) {
+      // Scopes without a positive memory limit were excluded when the groups
+      // were built, so this storage is not part of any capacity constraint.
+      continue;
+    }
+    int group_id = group_it->second;
     std::vector<int> groups{group_id};
     if (scope == "shared" && scope_to_group.count("shared.aiv0")) {
       groups.push_back(scope_to_group.at("shared.aiv0"));
