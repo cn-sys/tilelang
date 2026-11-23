@@ -298,7 +298,7 @@ printf "#!/usr/bin/env bash\nexec \"%s\" \"\$@\"\n" "$LLVM_CONFIG_PATH" > /usr/l
 chmod +x /usr/local/bin/llvm-config-16
 
 # TVM Python bits need Cython (for system Python used by the build)
-pip install --no-cache-dir "cython>=0.29.36,<3.0"
+pip install --no-cache-dir "cython>=3.1.0"
 
 # Clone + build TileLang (ROCm)
 # Default location: /opt/tilelang (adjust if you prefer a different path).
