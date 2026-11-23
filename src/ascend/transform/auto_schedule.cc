@@ -989,10 +989,11 @@ void ScheduleBuilder::Z3SchedulePythonLoop(ControlNode *ctrl,
 
   static std::optional<ffi::Function> z3_schedule_loop_func =
       ffi::Function::GetGlobal("tl.transform.z3_schedule_loop_python");
-  if (!z3_schedule_loop_func.has_value()) {
-    LOG(FATAL) << "Python Z3 loop scheduler not registered, falling back "
-                  "to topological sort";
-  }
+  ICHECK(z3_schedule_loop_func.has_value())
+      << "Python Z3 loop scheduler `tl.transform.z3_schedule_loop_python` is "
+         "not registered; loop scheduling cannot proceed without the Python "
+         "runtime. Import tilelang before compiling a pipelined Ascend "
+         "kernel.";
 
   // Prepare input data
   std::vector<int64_t> latencies;
