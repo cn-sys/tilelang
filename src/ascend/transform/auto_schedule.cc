@@ -710,8 +710,10 @@ std::vector<std::shared_ptr<IRStructure>> ScheduleBuilder::Z3SchedulePython(
   }
 
   try {
-    // Get the Python-registered function using ffi::Function::GetGlobal
-    static std::optional<ffi::Function> z3_schedule_func =
+    // Get the Python-registered function using ffi::Function::GetGlobal.
+    // A function-local static would cache a failed lookup forever, so a
+    // registration performed after the first compile would never be seen.
+    std::optional<ffi::Function> z3_schedule_func =
         ffi::Function::GetGlobal("tl.transform.z3_schedule_python");
     if (!z3_schedule_func.has_value()) {
       ICHECK(!manual_schedule)
