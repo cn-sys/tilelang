@@ -7102,7 +7102,10 @@ void CodeGenTileLangPTO::VisitExpr_(const CallNode *op,
     ICHECK(it != simd_pair_vars_.end())
         << "tl.simd.pair_get references an unknown pair variable "
         << var->name_hint << " in " << GetRef<Call>(op);
-    int64_t index = Downcast<IntImm>(op->args[1])->value;
+    int64_t index = 0;
+    ICHECK(TryGetConstInt(op->args[1], &index) && (index == 0 || index == 1))
+        << "tl.simd.pair_get index must be the constant 0 or 1, got "
+        << op->args[1];
     os << (index == 0 ? it->second.first : it->second.second);
     return;
   }
