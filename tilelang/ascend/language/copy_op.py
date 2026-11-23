@@ -284,9 +284,10 @@ def copy(  # noqa: A001
             ``ceildiv(N, 16)`` for B, including MajorMN transposed loads.
             May vary at runtime. ``None`` keeps the compact region pitch.
         l2_cache_ctrl (Optional[Union[int, str]], keyword-only): L2 cache
-            control for the GM↔L1 and UB↔GM DMA paths. Accepts the raw integer
-            or a cache-policy name (case-insensitive, suffix-matched), e.g.
-            ``"NOTALLOC_KEEP"``.
+            control for the GM→UB, UB→GM and GM→L1 DMA paths. The default is
+            direction-specific: the load paths use 0, while UB→GM defaults to
+            4. Accepts the raw integer or a cache-policy name (case-insensitive,
+            suffix-matched), e.g. ``"NOTALLOC_KEEP"``.
         unit_flag_ctrl (Optional[Union[int, PrimExpr]], keyword-only): Unit flag
             control for the Cube instruction; ``None`` omits the annotation.
         sub_blockid (Optional[Union[int, PrimExpr]], keyword-only): Sub-block id
