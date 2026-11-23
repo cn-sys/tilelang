@@ -483,7 +483,7 @@ TIR_DEFINE_TL_BUILTIN(ascend_mad_mx)
                                Integer(CallEffectKind::kOpaque));
 
 TIR_DEFINE_TL_BUILTIN(ascend_gemm_l1)
-    .set_num_inputs(11)
+    .set_num_inputs(12)
     .set_attr<TCallEffectKind>("TCallEffectKind",
                                Integer(CallEffectKind::kOpaque));
 
