@@ -12,7 +12,7 @@ dictionary when you need options such as GPU architecture or CPU model. The most
 
 | Base name | Description |
 | --------- | ----------- |
-| `auto` | Detects CUDA → HIP → Metal in that order. Useful when running the same script across machines. |
+| `auto` | Runs the registered detectors in registration order: Ascend first, then CUDA → HIP → Metal. Useful when running the same script across machines. |
 | `cuda` | NVIDIA GPUs. Use a config dict for options such as `{"kind": "cuda", "arch": "sm_80"}`. |
 | `cutedsl` | NVIDIA CUTLASS/CuTe DSL backend. Requires `nvidia-cutlass-dsl`. |
 | `hip` | AMD GPUs via ROCm. Use a config dict for options such as `{"kind": "hip", "mcpu": "gfx90a"}`. |
